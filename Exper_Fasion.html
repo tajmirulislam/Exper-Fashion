@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionFuture | AI-Powered Personalized Clothing</title>
+    <!-- SEO Basics -->
+    <meta name="description" content="Get AI-designed personalized clothing that matches your unique style. Custom-fit, sustainable fashion delivered to your doorstep.">
+    <meta name="keywords" content="personalized clothing, AI fashion, custom fit, sustainable clothing, fashion tech">
+    <meta name="author" content="FashionFuture">
+    <meta property="og:title" content="FashionFuture - AI-Powered Personalized Clothing">
+    <meta property="og:description" content="Get clothing designed just for you by AI">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/clothes.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fashion-pink': '#FF6B8B',
+                        'fashion-purple': '#9D4EDD',
+                        'fashion-teal': '#2EC4B6',
+                        'fashion-gold': '#FF9F1C',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .fashion-gradient {
+            background: linear-gradient(45deg, #FF6B8B, #9D4EDD, #2EC4B6);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(255, 107, 139, 0.3);
+        }
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .wheel-item {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        .chatbot {
+            transition: all 0.3s ease;
+        }
+        .chatbot-message {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-step {
+            transition: all 0.3s ease;
+        }
+        .progress-step.active {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Analytics Tracking -->
+    <script>
+        // Google Analytics Simulation
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+        
+        // A/B Testing Variant Selection
+        const abTestVariant = Math.random() > 0.5 ? 'A' : 'B';
+        localStorage.setItem('ab_variant', abTestVariant);
+        console.log('User assigned to variant:', abTestVariant);
+        
+        // Personalization based on time of day
+        const hour = new Date().getHours();
+        let greeting = "Welcome to FashionFuture!";
+        if (hour < 12) greeting = "Good morning! Start your day with fresh fashion";
+        else if (hour < 18) greeting = "Good afternoon! Discover your perfect outfit";
+        else greeting = "Good evening! Explore tonight's fashion picks";
+        
+        // Personalization based on device
+        const isMobile = window.innerWidth < 768;
+    </script>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full fashion-gradient mr-3"></div>
+                    <span class="text-2xl font-bold text-gray-800">Fashion<span class="text-fashion-pink">Future</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-fashion-pink font-medium">Features</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-fashion-pink font-medium">Pricing</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-fashion-pink font-medium">Reviews</a>
+                    <a href="#faq" class="text-gray-700 hover:text-fashion-pink font-medium">FAQ</a>
+                </div>
+                <div class="flex items-center">
+                    <button id="personalizeBtn" class="bg-fashion-pink text-white px-4 py-2 rounded-full mr-3 hover:bg-pink-600">
+                        <i class="fas fa-robot mr-2"></i>AI Style Match
+                    </button>
+                    <button id="cartBtn" class="relative">
+                        <i class="fas fa-shopping-cart text-2xl text-gray-700"></i>
+                        <span class="absolute -top-2 -right-2 bg-fashion-gold text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section class="fashion-gradient text-white py-20 md:py-32 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6" id="greetingText">Discover Your Unique Style with AI</h1>
+                    <p class="text-xl mb-8 opacity-90">Get clothing designed specifically for you by our AI. Perfect fit, personalized patterns, and sustainable materials.</p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button id="mainCta" class="bg-white text-fashion-pink font-bold py-4 px-8 rounded-full text-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                            <i class="fas fa-tshirt mr-2"></i>Create Your Style
+                        </button>
+                        <button id="secondaryCta" class="bg-transparent border-2 border-white text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-white hover:text-fashion-pink transition-all">
+                            <i class="fas fa-play-circle mr-2"></i>Watch Video
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center">
+                        <div class="flex mr-4">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                        <span>4.8/5 from 2,347 fashion lovers</span>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative" data-aos="fade-left">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                             alt="AI Designed Fashion" class="rounded-3xl shadow-2xl w-full">
+                        <div class="absolute -top-6 -left-6 bg-white p-4 rounded-2xl shadow-xl">
+                            <div class="text-fashion-purple font-bold text-lg">AI Style Match</div>
+                            <div class="text-gray-600">95% Match to You</div>
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl">
+                            <div class="text-fashion-teal font-bold text-lg">Perfect Fit</div>
+                            <div class="text-gray-600">Guaranteed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Value Proposition -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Why FashionFuture is Different</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">We combine artificial intelligence with sustainable fashion to create clothing that's uniquely you.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="fade-up">
+                    <div class="w-16 h-16 rounded-full fashion-gradient flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">AI-Powered Design</h3>
+                    <p class="text-gray-600">Our AI analyzes your style preferences, body measurements, and current trends to create custom designs just for you.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-full bg-fashion-teal flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Sustainable Materials</h3>
+                    <p class="text-gray-600">We use only eco-friendly, biodegradable fabrics that look great and feel amazing on your skin.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-full bg-fashion-gold flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">7-Day Delivery</h3>
+                    <p class="text-gray-600">From design to delivery in just one week. Your custom clothing arrives faster than any competitor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Lead Form & Personalization -->
+    <section class="py-20 bg-gray-50" id="personalization">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+                <div class="md:flex">
+                    <!-- Multi-Step Funnel -->
+                    <div class="md:w-1/2 p-10">
+                        <h2 class="text-3xl font-bold mb-2">Get Your Personalized Style Profile</h2>
+                        <p class="text-gray-600 mb-8">Answer 3 quick questions for your AI style match</p>
+                        
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Progress</span>
+                                <span id="stepCounter">1/3</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div id="progressBar" class="h-full fashion-gradient rounded-full w-1/3"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 1 -->
+                        <div id="step1" class="progress-step active">
+                            <h3 class="text-xl font-bold mb-4">What's your fashion personality?</h3>
+                            <div class="space-y-3">
+                                <button class="fashion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="minimalist">
+                                    <div class="font-medium">Minimalist</div>
+                                    <div class="text-gray-500 text-sm">Clean lines, neutral colors, simple elegance</div>
+                                </button>
+                                <button class="fashion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="bold">
+                                    <div class="font-medium">Bold & Vibrant</div>
+                                    <div class="text-gray-500 text-sm">Bright colors, patterns, statement pieces</div>
+                                </button>
+                                <button class="fashion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="classic">
+                                    <div class="font-medium">Classic</div>
+                                    <div class="text-gray-500 text-sm">Timeless pieces, traditional styles</div>
+                                </button>
+                                <button class="fashion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="eclectic">
+                                    <div class="font-medium">Eclectic Mix</div>
+                                    <div class="text-gray-500 text-sm">A little bit of everything, unique combinations</div>
+                                </button>
+                            </div>
+                            <button id="nextStep1" class="mt-6 bg-fashion-pink text-white font-bold py-3 px-8 rounded-full">Next</button>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div id="step2" class="progress-step hidden">
+                            <h3 class="text-xl font-bold mb-4">What occasions do you dress for most?</h3>
+                            <div class="space-y-3">
+                                <button class="occasion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="work">
+                                    <div class="font-medium">Work/Professional</div>
+                                </button>
+                                <button class="occasion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="casual">
+                                    <div class="font-medium">Casual Everyday</div>
+                                </button>
+                                <button class="occasion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="events">
+                                    <div class="font-medium">Special Events</div>
+                                </button>
+                                <button class="occasion-choice w-full text-left p-4 border rounded-xl hover:border-fashion-pink hover:bg-pink-50" data-value="athleisure">
+                                    <div class="font-medium">Athleisure/Comfort</div>
+                                </button>
+                            </div>
+                            <div class="flex justify-between mt-6">
+                                <button id="prevStep2" class="border border-gray-300 text-gray-700 font-bold py-3 px-8 rounded-full">Back</button>
+                                <button id="nextStep2" class="bg-fashion-pink text-white font-bold py-3 px-8 rounded-full">Next</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3 - Lead Form -->
+                        <div id="step3" class="progress-step hidden">
+                            <h3 class="text-xl font-bold mb-4">Get Your Personalized Style Report</h3>
+                            <p class="text-gray-600 mb-6">Enter your details to receive your AI-generated style profile</p>
+                            
+                            <form id="leadForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Full Name</label>
+                                    <input type="text" class="w-full p-3 border rounded-xl focus:border-fashion-pink focus:outline-none" placeholder="Your name" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Email Address</label>
+                                    <input type="email" class="w-full p-3 border rounded-xl focus:border-fashion-pink focus:outline-none" placeholder="you@example.com" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" class="w-full p-3 border rounded-xl focus:border-fashion-pink focus:outline-none" placeholder="+880 1XXX-XXXXXX">
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="newsletter" class="mr-2" checked>
+                                    <label for="newsletter" class="text-gray-700">Send me fashion tips and exclusive offers</label>
+                                </div>
+                                <button type="submit" class="w-full bg-fashion-pink text-white font-bold py-3 px-8 rounded-full hover:bg-pink-600">
+                                    Get My Free Style Report
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Feature & Results Preview -->
+                    <div class="md:w-1/2 bg-gradient-to-br from-purple-50 to-pink-50 p-10 flex flex-col justify-center">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 rounded-full fashion-gradient flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-robot text-3xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Your AI Stylist</h3>
+                            <p class="text-gray-600">Analyzing your preferences...</p>
+                        </div>
+                        
+                        <div id="aiResults" class="bg-white rounded-2xl p-6 shadow-lg">
+                            <h4 class="font-bold text-lg mb-4">Your Style Preview:</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-fashion-teal flex items-center justify-center mr-3">
+                                        <i class="fas fa-palette text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Color Palette</div>
+                                        <div id="colorPalette" class="text-gray-600">Waiting for your input...</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-fashion-purple flex items-center justify-center mr-3">
+                                        <i class="fas fa-tshirt text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Recommended Style</div>
+                                        <div id="recommendedStyle" class="text-gray-600">Waiting for your input...</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-fashion-gold flex items-center justify-center mr-3">
+                                        <i class="fas fa-star text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Match Score</div>
+                                        <div id="matchScore" class="text-gray-600">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-blue-50 rounded-xl">
+                            <div class="flex">
+                                <i class="fas fa-shield-alt text-blue-500 text-xl mr-3"></i>
+                                <div>
+                                    <div class="font-bold">Your data is secure</div>
+                                    <div class="text-sm text-gray-600">We never share your personal information with third parties</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Trust Signals -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Trusted by Fashion Lovers Worldwide</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-fashion-pink mb-2">10K+</div>
+                    <div class="text-gray-600">Happy Customers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-fashion-purple mb-2">4.8</div>
+                    <div class="text-gray-600">Average Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-fashion-teal mb-2">50+</div>
+                    <div class="text-gray-600">Design Awards</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-fashion-gold mb-2">100%</div>
+                    <div class="text-gray-600">Sustainable Materials</div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <div class="flex flex-wrap justify-center items-center space-x-8 space-y-4">
+                    <div class="bg-gray-100 p-4 rounded-xl">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8" alt="Google">
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-xl">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Vogue_logo.png" class="h-8" alt="Vogue">
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-xl">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Forbes_logo.svg" class="h-8" alt="Forbes">
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-xl">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/ELLE_LOGO.svg" class="h-8" alt="Elle">
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-xl">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/640px-Starbucks_Corporation_Logo_2011.svg.png" class="h-8" alt="Starbucks">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Benefit Section -->
+    <section class="py-20 bg-gray-50" id="features">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Experience the Future of Fashion</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">Discover how our technology enhances your style journey</p>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-bold mb-6">Virtual Try-On with AR</h3>
+                    <p class="text-gray-600 mb-6">See how clothes look on you before buying. Our augmented reality technology creates a realistic preview of any outfit on your body.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-fashion-teal mr-3 text-xl"></i>
+                            <span>Real-time fit visualization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-fashion-teal mr-3 text-xl"></i>
+                            <span>Mix and match items virtually</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-fashion-teal mr-3 text-xl"></i>
+                            <span>Share with friends for feedback</span>
+                        </li>
+                    </ul>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl p-8 relative h-80">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div class="text-6xl">👗</div>
+                        </div>
+                        <div class="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-xl">
+                            <div class="text-fashion-purple font-bold">AR Mode</div>
+                            <div class="text-gray-600">Tap to activate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <div class="bg-gradient-to-r from-pink-100 to-orange-100 rounded-3xl p-8 relative h-80">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div class="text-6xl">📱</div>
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl">
+                            <div class="text-fashion-pink font-bold">Style DNA</div>
+                            <div class="text-gray-600">Your unique profile</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-left">
+                    <h3 class="text-3xl font-bold mb-6">Your Personal Style DNA</h3>
+                    <p class="text-gray-600 mb-6">We create a unique style profile that evolves with you. The more you interact, the better our AI understands your preferences.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-dna text-fashion-pink mr-3 text-xl"></i>
+                            <span>Personalized style evolution tracking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-bell text-fashion-pink mr-3 text-xl"></i>
+                            <span>Smart notifications for new matching items</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chart-line text-fashion-pink mr-3 text-xl"></i>
+                            <span>Seasonal trend predictions just for you</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Social Proof -->
+    <section class="py-20 bg-white" id="testimonials">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Loved by Fashionistas</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">See what our customers say about their personalized fashion journey</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="flip-left">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full mr-4" alt="Sarah">
+                        <div>
+                            <div class="font-bold">Sarah J.</div>
+                            <div class="text-gray-500">Fashion Blogger</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The AI understood my style better than I do! The dress I received was perfect for my body type and personal aesthetic."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="flip-left" data-aos-delay="100">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full mr-4" alt="Michael">
+                        <div>
+                            <div class="font-bold">Michael T.</div>
+                            <div class="text-gray-500">Tech Entrepreneur</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"As someone who hates shopping, this service is a game-changer. My wardrobe is now filled with clothes that actually fit and look great."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-3xl card-hover" data-aos="flip-left" data-aos-delay="200">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full mr-4" alt="Priya">
+                        <div>
+                            <div class="font-bold">Priya R.</div>
+                            <div class="text-gray-500">Architect</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The sustainable materials feel amazing, and I love that I'm not contributing to fast fashion. Plus, every piece feels uniquely mine."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Testimonial -->
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-purple-100 to-pink-100 rounded-3xl p-8 md:p-12" data-aos="zoom-in">
+                <h3 class="text-2xl font-bold mb-6 text-center">See Our Customers in Action</h3>
+                <div class="aspect-w-16 aspect-h-9 bg-gray-300 rounded-2xl overflow-hidden relative">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-play-circle text-6xl text-fashion-pink mb-4"></i>
+                            <div class="text-xl font-medium">Video: Customer Experience</div>
+                            <div class="text-gray-600">See how Maria discovered her perfect style</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Pricing -->
+    <section class="py-20 bg-gray-50" id="pricing">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">Choose the plan that fits your fashion journey</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover" data-aos="fade-up">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                        <div class="text-5xl font-bold mb-2">$29<span class="text-xl text-gray-500">/month</span></div>
+                        <div class="text-gray-600">Perfect for trying personalized fashion</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>1 AI-designed item per month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Basic style profile</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Standard shipping</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-3"></i>
+                            <span>Virtual try-on</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-3"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full border-2 border-fashion-pink text-fashion-pink font-bold py-3 px-8 rounded-full hover:bg-fashion-pink hover:text-white transition-all">
+                        Get Started
+                    </button>
+                </div>
+                
+                <div class="bg-gradient-to-br from-fashion-pink to-fashion-purple text-white rounded-3xl p-8 shadow-2xl card-hover transform scale-105" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center mb-8">
+                        <div class="inline-block bg-white text-fashion-pink px-4 py-1 rounded-full text-sm font-bold mb-4">MOST POPULAR</div>
+                        <h3 class="text-2xl font-bold mb-4">Pro Stylist</h3>
+                        <div class="text-5xl font-bold mb-2">$79<span class="text-xl opacity-80">/month</span></div>
+                        <div class="opacity-90">For serious fashion enthusiasts</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-3"></i>
+                            <span>3 AI-designed items per month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-3"></i>
+                            <span>Advanced style DNA profile</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-3"></i>
+                            <span>Virtual try-on with AR</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-3"></i>
+                            <span>Express shipping</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-3"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-white text-fashion-pink font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition-all">
+                        Get Started
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-4">Elite</h3>
+                        <div class="text-5xl font-bold mb-2">$149<span class="text-xl text-gray-500">/month</span></div>
+                        <div class="text-gray-600">For the ultimate fashion experience</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Unlimited AI-designed items</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Personal fashion consultant</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Exclusive fabric access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>Same-day delivery in major cities</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>24/7 VIP support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full border-2 border-fashion-purple text-fashion-purple font-bold py-3 px-8 rounded-full hover:bg-fashion-purple hover:text-white transition-all">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-center mt-12 text-gray-600">All plans include sustainable materials and perfect fit guarantee</p>
+        </div>
+    </section>
+
+    <!-- 8. Gamification -->
+    <section class="py-20 bg-gradient-to-r from-purple-50 to-pink-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Spin & Win!</h2>
+            <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">Spin the wheel for an exclusive discount on your first order</p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center">
+                <div class="mb-12 md:mb-0 md:mr-16">
+                    <div class="wheel-container">
+                        <div id="wheel" class="wheel">
+                            <!-- Wheel segments will be generated by JS -->
+                        </div>
+                        <div id="spinButton" class="wheel-center">
+                            <i class="fas fa-redo-alt text-2xl text-fashion-pink"></i>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button id="spinBtn" class="bg-fashion-pink text-white font-bold py-3 px-8 rounded-full hover:bg-pink-600">
+                            SPIN THE WHEEL
+                        </button>
+                        <p class="text-gray-600 mt-2">One spin per user</p>
+                    </div>
+                </div>
+                
+                <div class="max-w-md">
+                    <h3 class="text-2xl font-bold mb-6">Your Discount Awaits!</h3>
+                    <p class="text-gray-600 mb-6">Spin the wheel to win an exclusive discount on your first AI-designed clothing item. Every spin wins!</p>
+                    
+                    <div id="resultContainer" class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+                        <h4 class="font-bold text-lg mb-2">Your Prize:</h4>
+                        <div id="prizeResult" class="text-3xl font-bold text-fashion-pink">Spin to reveal</div>
+                        <p id="prizeDescription" class="text-gray-600 mt-2">Discount will be applied at checkout</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 shadow-lg">
+                        <h4 class="font-bold text-lg mb-4">How it works:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-fashion-teal text-white flex items-center justify-center mr-3">1</div>
+                                <span>Spin the wheel</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-fashion-purple text-white flex items-center justify-center mr-3">2</div>
+                                <span>Get your discount</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-fashion-gold text-white flex items-center justify-center mr-3">3</div>
+                                <span>Use it within 24 hours</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="py-20 bg-white" id="faq">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">Frequently Asked Questions</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">Get answers to common questions about our AI-powered fashion service</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                        <button class="faq-question w-full text-left p-6 font-bold text-lg flex justify-between items-center hover:bg-gray-50">
+                            <span>How does the AI design my clothes?</span>
+                            <i class="fas fa-chevron-down text-fashion-pink"></i>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">Our AI analyzes your style preferences, body measurements, color preferences, and current fashion trends to create unique designs tailored specifically for you. We use machine learning algorithms that improve with every interaction.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                        <button class="faq-question w-full text-left p-6 font-bold text-lg flex justify-between items-center hover:bg-gray-50">
+                            <span>What if the clothes don't fit perfectly?</span>
+                            <i class="fas fa-chevron-down text-fashion-pink"></i>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">We offer a 100% perfect fit guarantee. If any item doesn't fit perfectly, we'll remake it for free or provide a full refund. Our AI has a 98.7% accuracy rate for measurements, but we always prioritize your satisfaction.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                        <button class="faq-question w-full text-left p-6 font-bold text-lg flex justify-between items-center hover:bg-gray-50">
+                            <span>How sustainable are your materials?</span>
+                            <i class="fas fa-chevron-down text-fashion-pink"></i>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">We use 100% sustainable materials including organic cotton, bamboo fabric, recycled polyester, and Tencel. Our production process uses 80% less water than traditional clothing manufacturing and we have a zero-waste policy.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                        <button class="faq-question w-full text-left p-6 font-bold text-lg flex justify-between items-center hover:bg-gray-50">
+                            <span>Can I return customized items?</span>
+                            <i class="fas fa-chevron-down text-fashion-pink"></i>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">Yes! We offer a 30-day return policy even for customized items. If you're not completely satisfied with your personalized clothing, you can return it for a full refund or exchange.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                        <button class="faq-question w-full text-left p-6 font-bold text-lg flex justify-between items-center hover:bg-gray-50">
+                            <span>How long does delivery take?</span>
+                            <i class="fas fa-chevron-down text-fashion-pink"></i>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">Standard delivery takes 7-10 days from design approval. Express delivery (available with Pro and Elite plans) takes 3-5 days. In major cities, same-day delivery is available for Elite members.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <p class="text-gray-600">Still have questions? <a href="#" class="text-fashion-pink font-bold">Contact our support team</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Contact Info -->
+    <section class="py-20 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 rounded-full fashion-gradient mr-3"></div>
+                            <span class="text-2xl font-bold">Fashion<span class="text-fashion-pink">Future</span></span>
+                        </div>
+                        <p class="text-gray-300 mb-6">Revolutionizing fashion with AI, personalization, and sustainability. Creating clothing that's as unique as you are.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-fashion-pink">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-fashion-pink">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-fashion-pink">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-fashion-pink">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-fashion-teal mr-3"></i>
+                                <span>123 Fashion Street, Style District<br>Dhaka 1212, Bangladesh</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-fashion-teal mr-3"></i>
+                                <span>+880 1XXX-XXXXXX</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-fashion-teal mr-3"></i>
+                                <span>hello@fashionfuture.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-fashion-teal mr-3"></i>
+                                <span>Mon-Fri: 9AM-6PM, Sat: 10AM-4PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-6">Newsletter Signup</h3>
+                        <p class="text-gray-300 mb-4">Get fashion tips, exclusive offers, and style inspiration delivered to your inbox.</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email address" class="flex-grow p-3 rounded-l-lg text-gray-900 focus:outline-none">
+                            <button class="bg-fashion-pink px-5 rounded-r-lg font-bold hover:bg-pink-600">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-3">We respect your privacy. Unsubscribe at any time.</p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                    <p>&copy; 2023 FashionFuture. All rights reserved. | <a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
+                    <p class="mt-2">Designed with <i class="fas fa-heart text-fashion-pink"></i> for fashion lovers everywhere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div id="chatbot" class="fixed bottom-6 right-6 w-80 h-96 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+        <div class="bg-gradient-to-r from-fashion-pink to-fashion-purple text-white p-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-robot text-xl mr-2"></i>
+                    <span class="font-bold">Fashion AI Assistant</span>
+                </div>
+                <button id="closeChatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="chatbotMessages" class="p-4 h-64 overflow-y-auto">
+            <div class="chatbot-message mb-4">
+                <div class="bg-gray-100 rounded-2xl p-3 max-w-xs">
+                    <p>Hi! I'm your AI fashion assistant. How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-4 border-t">
+            <div class="flex">
+                <input type="text" id="chatbotInput" placeholder="Ask about fashion, styling, or our services..." class="flex-grow p-3 border rounded-l-xl focus:outline-none focus:border-fashion-pink">
+                <button id="sendChatbotMessage" class="bg-fashion-pink text-white px-4 rounded-r-xl">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbotToggle" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-fashion-pink to-fashion-purple text-white shadow-2xl z-40 hover:shadow-2xl">
+        <i class="fas fa-robot text-xl"></i>
+    </button>
+
+    <!-- A/B Testing Notice -->
+    <div id="abTestingNotice" class="fixed bottom-6 left-6 bg-white rounded-xl shadow-xl p-4 max-w-xs hidden z-40">
+        <div class="flex items-center mb-2">
+            <i class="fas fa-flask text-fashion-purple mr-2"></i>
+            <span class="font-bold">A/B Testing Active</span>
+        </div>
+        <p class="text-sm text-gray-600">You're viewing <span id="variantType" class="font-bold">Variant A</span> of our landing page. Some elements may differ from other users' experience.</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // Set personalized greeting
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('greetingText').textContent = greeting;
+            
+            // Show A/B testing variant notice
+            const variant = localStorage.getItem('ab_variant') || 'A';
+            document.getElementById('variantType').textContent = `Variant ${variant}`;
+            if (variant === 'B') {
+                // Change some elements for variant B
+                document.getElementById('mainCta').textContent = 'Start Your Style Journey';
+                document.querySelector('nav .text-2xl').innerHTML = 'Style<span class="text-fashion-pink">AI</span>';
+            }
+            document.getElementById('abTestingNotice').classList.remove('hidden');
+            
+            // Create wheel segments
+            const wheel = document.getElementById('wheel');
+            const prizes = [
+                { text: "10% OFF", color: "#FF6B8B", desc: "10% discount on your first order" },
+                { text: "FREE SHIPPING", color: "#9D4EDD", desc: "Free shipping on your next purchase" },
+                { text: "15% OFF", color: "#2EC4B6", desc: "15% discount on your first order" },
+                { text: "$5 CARD", color: "#FF9F1C", desc: "$5 gift card for your next purchase" },
+                { text: "20% OFF", color: "#FF6B8B", desc: "20% discount on your first order" },
+                { text: "FREE GIFT", color: "#9D4EDD", desc: "Free accessory with your first order" },
+                { text: "25% OFF", color: "#2EC4B6", desc: "25% discount on your first order" },
+                { text: "VIP ACCESS", color: "#FF9F1C", desc: "VIP early access to new collections" }
+            ];
+            
+            let wheelHtml = '';
+            prizes.forEach((prize, i) => {
+                const angle = (360 / prizes.length) * i;
+                wheelHtml += `
+                    <div class="wheel-item" style="background-color: ${prize.color}; transform: rotate(${angle}deg) skewY(${90 - (360 / prizes.length)}deg);">
+                        <div style="transform: skewY(${(360 / prizes.length) - 90}deg) rotate(${180 / prizes.length}deg);">${prize.text}</div>
+                    </div>
+                `;
+            });
+            wheel.innerHTML = wheelHtml;
+            
+            // Multi-step funnel logic
+            let currentStep = 1;
+            const stepElements = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+            const progressBar = document.getElementById('progressBar');
+            const stepCounter = document.getElementById('stepCounter');
+            
+            let userSelections = {
+                fashionPersonality: null,
+                occasion: null
+            };
+            
+            // Step 1 - Fashion personality selection
+            document.querySelectorAll('.fashion-choice').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.fashion-choice').forEach(btn => {
+                        btn.classList.remove('border-fashion-pink', 'bg-pink-50');
+                        btn.classList.add('border-gray-200');
+                    });
+                    this.classList.add('border-fashion-pink', 'bg-pink-50');
+                    this.classList.remove('border-gray-200');
+                    userSelections.fashionPersonality = this.getAttribute('data-value');
+                    
+                    // Update AI preview
+                    updateAIPreview();
+                });
+            });
+            
+            document.getElementById('nextStep1').addEventListener('click', function() {
+                if (userSelections.fashionPersonality) {
+                    showStep(2);
+                } else {
+                    alert('Please select your fashion personality first');
+                }
+            });
+            
+            // Step 2 - Occasion selection
+            document.querySelectorAll('.occasion-choice').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.occasion-choice').forEach(btn => {
+                        btn.classList.remove('border-fashion-pink', 'bg-pink-50');
+                        btn.classList.add('border-gray-200');
+                    });
+                    this.classList.add('border-fashion-pink', 'bg-pink-50');
+                    this.classList.remove('border-gray-200');
+                    userSelections.occasion = this.getAttribute('data-value');
+                    
+                    // Update AI preview
+                    updateAIPreview();
+                });
+            });
+            
+            document.getElementById('prevStep2').addEventListener('click', function() {
+                showStep(1);
+            });
+            
+            document.getElementById('nextStep2').addEventListener('click', function() {
+                if (userSelections.occasion) {
+                    showStep(3);
+                } else {
+                    alert('Please select your primary occasion first');
+                }
+            });
+            
+            // Lead form submission
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you! Your style report will be emailed to you shortly.');
+                // In a real app, you would send this data to your server
+            });
+            
+            function showStep(stepNumber) {
+                currentStep = stepNumber;
+                
+                // Hide all steps
+                stepElements.forEach(step => {
+                    step.classList.remove('active');
+                    step.classList.add('hidden');
+                });
+                
+                // Show current step
+                stepElements[stepNumber - 1].classList.remove('hidden');
+                stepElements[stepNumber - 1].classList.add('active');
+                
+                // Update progress bar
+                const width = (stepNumber / 3) * 100;
+                progressBar.style.width = `${width}%`;
+                
+                // Update step counter
+                stepCounter.textContent = `${stepNumber}/3`;
+            }
+            
+            function updateAIPreview() {
+                const colorMap = {
+                    minimalist: 'Neutral tones (Beige, White, Gray)',
+                    bold: 'Vibrant colors (Red, Yellow, Electric Blue)',
+                    classic: 'Traditional colors (Navy, Burgundy, Cream)',
+                    eclectic: 'Mixed palette (Unexpected combinations)'
+                };
+                
+                const styleMap = {
+                    minimalist: 'Clean lines, tailored fit, simple elegance',
+                    bold: 'Statement pieces, patterns, eye-catching designs',
+                    classic: 'Timeless silhouettes, quality fabrics',
+                    eclectic: 'Unique combinations, vintage-inspired pieces'
+                };
+                
+                if (userSelections.fashionPersonality) {
+                    document.getElementById('colorPalette').textContent = colorMap[userSelections.fashionPersonality];
+                    document.getElementById('recommendedStyle').textContent = styleMap[userSelections.fashionPersonality];
+                    
+                    // Calculate match score
+                    let score = 0;
+                    if (userSelections.fashionPersonality) score += 50;
+                    if (userSelections.occasion) score += 30;
+                    document.getElementById('matchScore').textContent = `${score}%`;
+                }
+            }
+            
+            // Gamification - Spin the wheel
+            let isSpinning = false;
+            document.getElementById('spinBtn').addEventListener('click', function() {
+                if (isSpinning) return;
+                
+                isSpinning = true;
+                const wheel = document.getElementById('wheel');
+                const randomDegree = 1440 + Math.floor(Math.random() * 360); // At least 4 full rotations
+                
+                wheel.style.transform = `rotate(${randomDegree}deg)`;
+                
+                setTimeout(() => {
+                    // Calculate which prize was won
+                    const segmentAngle = 360 / prizes.length;
+                    const normalizedAngle = randomDegree % 360;
+                    const winningIndex = Math.floor(((360 - normalizedAngle) % 360) / segmentAngle);
+                    
+                    const prize = prizes[winningIndex];
+                    document.getElementById('prizeResult').textContent = prize.text;
+                    document.getElementById('prizeDescription').textContent = prize.desc;
+                    
+                    // Show confetti effect
+                    createConfetti();
+                    
+                    isSpinning = false;
+                }, 4000);
+            });
+            
+            function createConfetti() {
+                const colors = ['#FF6B8B', '#9D4EDD', '#2EC4B6', '#FF9F1C'];
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'absolute w-3 h-3 rounded-full';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.top = '-10px';
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    
+                    document.querySelector('.wheel-container').appendChild(confetti);
+                    
+                    // Animation
+                    const animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: 1000 + Math.random() * 1000,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                    });
+                    
+                    animation.onfinish = () => confetti.remove();
+                }
+            }
+            
+            // FAQ toggle functionality
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // Toggle current answer
+                    if (answer.classList.contains('hidden')) {
+                        answer.classList.remove('hidden');
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    } else {
+                        answer.classList.add('hidden');
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                    
+                    // Close other open FAQs
+                    document.querySelectorAll('.faq-question').forEach(otherQuestion => {
+                        if (otherQuestion !== this) {
+                            const otherAnswer = otherQuestion.nextElementSibling;
+                            const otherIcon = otherQuestion.querySelector('i');
+                            otherAnswer.classList.add('hidden');
+                            otherIcon.classList.remove('fa-chevron-up');
+                            otherIcon.classList.add('fa-chevron-down');
+                        }
+                    });
+                });
+            });
+            
+            // Chatbot functionality
+            const chatbot = document.getElementById('chatbot');
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const closeChatbot = document.getElementById('closeChatbot');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const sendChatbotMessage = document.getElementById('sendChatbotMessage');
+            
+            chatbotToggle.addEventListener('click', function() {
+                chatbot.classList.toggle('hidden');
+            });
+            
+            closeChatbot.addEventListener('click', function() {
+                chatbot.classList.add('hidden');
+            });
+            
+            function addBotMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chatbot-message mb-4';
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-100 rounded-2xl p-3 max-w-xs">
+                        <p>${text}</p>
+                    </div>
+                `;
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            function addUserMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chatbot-message mb-4 flex justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-fashion-pink text-white rounded-2xl p-3 max-w-xs">
+                        <p>${text}</p>
+                    </div>
+                `;
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            sendChatbotMessage.addEventListener('click', function() {
+                const message = chatbotInput.value.trim();
+                if (message) {
+                    addUserMessage(message);
+                    chatbotInput.value = '';
+                    
+                    // Simulate AI response
+                    setTimeout(() => {
+                        const responses = [
+                            "Our AI designs clothing based on your preferences, body measurements, and current trends.",
+                            "Delivery typically takes 7-10 days. Express options are available for Pro and Elite members.",
+                            "Yes! We offer a 30-day return policy even for customized items.",
+                            "We use 100% sustainable materials including organic cotton, bamboo fabric, and recycled polyester.",
+                            "The AI has a 98.7% accuracy rate for measurements, but we offer a perfect fit guarantee."
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        addBotMessage(randomResponse);
+                    }, 1000);
+                }
+            });
+            
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatbotMessage.click();
+                }
+            });
+            
+            // Personalize button
+            document.getElementById('personalizeBtn').addEventListener('click', function() {
+                document.getElementById('personalization').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // CTA button scroll to personalization
+            document.getElementById('mainCta').addEventListener('click', function() {
+                document.getElementById('personalization').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Secondary CTA button for video
+            document.getElementById('secondaryCta').addEventListener('click', function() {
+                alert('Video would play here in a real implementation');
+            });
+        });
+    </script>
+</body>
+</html>
